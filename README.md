@@ -2,7 +2,69 @@
 
 The AI Orchestration Layer is a comprehensive solution for integrating various components like Large Language Models (LLMs), AI tools, object stores, and vector databases into a seamless and unified orchestration and management layer. This repository provides tools to streamline the development, deployment, and scaling of AI applications.
 
-## See High-Level Documentation
+## See Blog Article "Architecting AI: Storage, Retrieval, and Reasoning" for Conceptual Explanation
+
+[Blog Article: "Architecting AI: Storage, Retrieval, and Reasoning"](/Architecting AI: Storage, Retrieval, and Reasoning.md)
+
+### Architecting AI: Storage, Retrieval, and Reasoning
+
+This is a detailed Mermaid diagram representing the abstracted AI architecture using MinIO for storage, Weaviate for retrieval, and a reasoning engine with LangChain and GraphRAG:
+
+```mermaid
+graph TD
+    A[Abstract AI Architecture] --> B[Storage Component]
+    A --> C[Retrieval Component]
+    A --> D[Reasoning Component]
+
+    B[Storage Component] --> E[MinIO]
+    E --> F[Create Buckets]
+    F --> G[Bucket: cda-datasets]
+    F --> H[Bucket: documents]
+    F --> I[Bucket: functions]
+    F --> J[Bucket: backups]
+    E --> K[Save Data]
+    E --> L[Load Data]
+
+    C[Retrieval Component] --> M[Weaviate]
+    M --> N[Create Schema]
+    N --> O[Class: Document]
+    O --> P[Property: text]
+    O --> Q[Property: source]
+    M --> R[Retrieve Data]
+
+    D[Reasoning Component] --> S[LangChain]
+    S --> T[Prompt Template]
+    T --> U[Query: What are the latest trends in AI?]
+    S --> V[Generate Document]
+    D --> W[GraphRAG]
+    W --> X[Index Documents]
+    W --> Y[Process Documents]
+    W --> Z[Generate Summaries]
+
+    style B fill:#f9f,stroke:#333,stroke-width:4px
+    style C fill:#ccf,stroke:#333,stroke-width:4px
+    style D fill:#cfc,stroke:#333,stroke-width:4px
+```
+
+This diagram visually represents the key components and their interactions within the AI architecture discussed throughout the article:
+
+- **Storage Component**:
+  - MinIO is used for object storage.
+  - Buckets are created for organizing data.
+  - Functions for saving and loading data are implemented.
+
+- **Retrieval Component**:
+  - Weaviate is used for vector-based search.
+  - A schema is created to manage documents.
+  - Functions for data retrieval are implemented.
+
+- **Reasoning Component**:
+  - LangChain is used for prompt engineering.
+  - GraphRAG is used for enhanced retrieval-augmented generation.
+  - Functions for indexing, processing, and summarizing documents are implemented.
+
+
+## See High-Level Documentation for the Imtegration, Processes, and Functionality
 
 [High Level Architecture](/High-Level-Architecture.md) and [Abstract Layer](/Abstract-Layer.md) 
 
@@ -122,7 +184,7 @@ The data flow follows the arrows, starting from user interactions and moving thr
 This architecture provides a comprehensive and scalable solution for integrating various AI components, including MinIO, Weaviate, and GraphRAG, to enable dynamic ETL operations, document generation, and advanced querying capabilities.​​​​​​​​​​​​​​​​
 
 
-## Production Level Implementation Diagram
+## Understanding Production Level Implementation Diagram as Road Map
 
 ```mermaid
 graph TD
