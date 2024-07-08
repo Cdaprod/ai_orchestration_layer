@@ -105,7 +105,7 @@ This architecture unifies the components and concepts discussed in the provided 
 
 1. **User Interaction Layer**: Includes the user interface and API gateway for handling user requests.
 
-2. **Routing and Orchestration Layer**: Consists of the LLM router (e.g., Cdaprod/RouteLLM) and orchestration tools (e.g., Autogen, Langgraph, LangChain) for directing requests to appropriate models and managing the multi-agent system.
+2. **Routing and Orchestration Layer**: Consists of the LLM router (e.g., RouteLLM) and orchestration tools (e.g., Autogen, Langgraph, LangChain) for directing requests to appropriate models and managing the multi-agent system.
 
 3. **Model Layer**: Contains various language models from OpenAI, Anthropic, Grok, LLaMA, and custom fine-tuned models.
 
@@ -113,7 +113,7 @@ This architecture unifies the components and concepts discussed in the provided 
 
 5. **Storage Layer**: Consists of MinIO for object storage (with buckets for datasets, documents, functions, backups, etc.) and Weaviate for the vector database (with schema classes, modules, RAG, document generation, and object creation in MinIO).
 
-6. **GraphRAG Integration**: Incorporates GraphRAG for knowledge graph extraction, storage, and reasoning, enhancing the retrieval and generation capabilities.
+6. **GraphRAG Integration (can be any)**: Incorporates GraphRAG for knowledge graph extraction, storage, and reasoning, enhancing the retrieval and generation capabilities.
 
 7. **Validation and Feedback Layer**: Includes user feedback systems, validation tools, and monitoring systems for ensuring the quality and performance of the system.
 
