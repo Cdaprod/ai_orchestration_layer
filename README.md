@@ -2,6 +2,128 @@
 
 The AI Orchestration Layer is a comprehensive solution for integrating various components like Large Language Models (LLMs), AI tools, object stores, and vector databases into a seamless and unified orchestration and management layer. This repository provides tools to streamline the development, deployment, and scaling of AI applications.
 
+## See High-Level Documentation
+
+[High Level Architecture](/High-Level-Architecture.md) and [Abstract Layer](/Abstract-Layer.md) 
+
+### High Level Diagram
+
+```mermaid
+graph TD
+%% Style Definitions
+classDef userLayer fill:#f9f9f9,stroke:#333,stroke-width:2px;
+classDef routingLayer fill:#e6ffe6,stroke:#333,stroke-width:2px;
+classDef modelLayer fill:#f3f3ff,stroke:#333,stroke-width:2px;
+classDef agentLayer fill:#ffe6e6,stroke:#333,stroke-width:2px;
+classDef storageLayer fill:#e6f3ff,stroke:#333,stroke-width:2px;
+classDef validationLayer fill:#ffffe6,stroke:#333,stroke-width:2px;
+
+%% User Interaction Layer
+subgraph "User Interaction Layer"
+  UI[User Interface]:::userLayer
+  API[API Gateway]:::userLayer
+end
+
+%% Routing and Orchestration Layer
+subgraph "Routing and Orchestration Layer"
+  LLMRouter[LLM Router]:::routingLayer
+  Orchestrator[Orchestration Tools]:::routingLayer
+end
+
+%% Model Layer
+subgraph "Model Layer"
+  OpenAI[OpenAI Models]:::modelLayer
+  Anthropic[Anthropic Models]:::modelLayer
+  Grok[Grok Models]:::modelLayer
+  LLaMA[LLaMA Models]:::modelLayer
+  Custom[Custom Fine-tuned Models]:::modelLayer
+end
+
+%% Agent and Feature Code Layer
+subgraph "Agent and Feature Code Layer"
+  MAS[Multi-Agent System]:::agentLayer
+  Coder[Agentic Coder and Programmer]:::agentLayer
+  Features[Feature Code Modules]:::agentLayer
+end
+
+%% Storage Layer
+subgraph "Storage Layer"
+  MinIO[MinIO S3 Endpoint]:::storageLayer
+  Weaviate[Weaviate VDB Endpoint]:::storageLayer
+  MinIO --> |"Buckets"| Buckets[cda-datasets, documents, functions, backups,...]:::storageLayer
+  MinIO --> |"Transformation"| TFW[Transformation Functions]:::storageLayer
+  Weaviate --> |"Schema"| Schema[Schema Classes and Modules]:::storageLayer
+  Weaviate --> |"RAG and DocGen"| RAGDG[RAG, Document Generation]:::storageLayer
+  Weaviate --> |"Create Objects"| CreateObj[Create Objects in MinIO]:::storageLayer
+end
+
+%% GraphRAG Integration
+subgraph GraphRAG
+  KGExtract[Knowledge Graph Extraction]
+  KGStore[Knowledge Graph Storage]
+  KGReason[Knowledge Graph Reasoning]
+end
+
+%% Validation and Feedback Layer
+subgraph "Validation and Feedback Layer"
+  UserFeedback[User Feedback Systems]:::validationLayer
+  ValidationTools[Validation Tools]:::validationLayer
+  Monitoring[Monitoring Systems]:::validationLayer
+end
+
+%% Data Flow
+UI --> API
+API --> LLMRouter
+LLMRouter --> OpenAI
+LLMRouter --> Anthropic
+LLMRouter --> Grok
+LLMRouter --> LLaMA
+LLMRouter --> Custom
+OpenAI --> MAS
+Anthropic --> MAS
+Grok --> MAS
+LLaMA --> MAS
+Custom --> MAS
+MAS --> Coder
+MAS --> Features
+Coder --> MinIO
+Coder --> Weaviate
+Features --> MinIO
+Features --> Weaviate
+MinIO --> KGExtract
+Weaviate --> KGExtract
+KGExtract --> KGStore
+KGStore --> KGReason
+KGReason --> UserFeedback
+UserFeedback --> ValidationTools
+ValidationTools --> Monitoring
+Monitoring --> Orchestrator
+Orchestrator --> LLMRouter
+```
+
+This architecture unifies the components and concepts discussed in the provided sections:
+
+1. **User Interaction Layer**: Includes the user interface and API gateway for handling user requests.
+
+2. **Routing and Orchestration Layer**: Consists of the LLM router (e.g., Cdaprod/RouteLLM) and orchestration tools (e.g., Autogen, Langgraph, LangChain) for directing requests to appropriate models and managing the multi-agent system.
+
+3. **Model Layer**: Contains various language models from OpenAI, Anthropic, Grok, LLaMA, and custom fine-tuned models.
+
+4. **Agent and Feature Code Layer**: Includes the multi-agent system, agentic coder and programmer, and feature code modules for executing tasks and generating code.
+
+5. **Storage Layer**: Consists of MinIO for object storage (with buckets for datasets, documents, functions, backups, etc.) and Weaviate for the vector database (with schema classes, modules, RAG, document generation, and object creation in MinIO).
+
+6. **GraphRAG Integration**: Incorporates GraphRAG for knowledge graph extraction, storage, and reasoning, enhancing the retrieval and generation capabilities.
+
+7. **Validation and Feedback Layer**: Includes user feedback systems, validation tools, and monitoring systems for ensuring the quality and performance of the system.
+
+The data flow follows the arrows, starting from user interactions and moving through the layers for processing, storage, and feedback.
+
+This architecture provides a comprehensive and scalable solution for integrating various AI components, including MinIO, Weaviate, and GraphRAG, to enable dynamic ETL operations, document generation, and advanced querying capabilities.​​​​​​​​​​​​​​​​
+
+
+## Production Level Implementation Diagram
+
 ```mermaid
 graph TD
     A[Requirement Analysis] --> B[Design Phase]
